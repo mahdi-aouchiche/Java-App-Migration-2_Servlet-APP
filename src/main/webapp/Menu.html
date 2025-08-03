@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Menu User Options</title>
+
+	<style>
+		h3 {
+			color: blue;
+			font-size: 14px;
+			font-family: verdana;
+		}
+
+		.menu-container {
+			max-height: 500px; /* Adjust as needed */
+			overflow-y: scroll;
+		}
+
+		.menu-container ol {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		.menu-container li {
+			padding: 10px;
+			/*border-bottom: 1px solid #ccc; */
+		}
+
+		/* Optional: Style the scrollbar */
+		.menu-container::-webkit-scrollbar {
+			width: 10px;
+		}
+
+		.menu-container::-webkit-scrollbar-track {
+			background: #f1f1f1;
+		}
+
+		.menu-container::-webkit-scrollbar-thumb {
+			background: #888;
+		}
+
+		.menu-container::-webkit-scrollbar-thumb:hover {
+			background: #555;
+		}
+	</style>
+</head>
+
+<body>
+	<h4>Select an option from the list:</h4>
+
+	<menu class="menu-container">
+
+		<!-- 01 -->
+		<li><a href="ViewEmployeesDetailsAffiliatedToADepartment">
+				View employees details affiliated to a department.
+		 </a></li>
+
+		<!-- 02 -->
+		<li><a href="ViewEmployeesDetailsNotAffiliatedToADepartment">
+				View employees details not affiliated to a department.
+		</a></li>
+
+		<!-- 03 -->
+		<li><a href="ViewNumberOfEmployeesInEachDepartment">
+				View number of employees in each department.
+		</a></li>
+
+		<!-- 04 -->
+		<li><a href="ViewAverageSalaryOfAllEmployees">
+				View the average salary of all employees.
+		</a></li>
+
+		<!-- 05 -->
+		<li><a href="ViewMaximumAndMinimumSalaries">
+				View the maximum and minimum salaries.
+		</a></li>
+
+		<!-- 06 -->
+		<li><a href="ViewSecondMaximumSalary">
+				View the second maximum salary among employees.
+		</a></li>
+
+		<!-- 07 -->
+		<li><a href="ViewAverageEmployeesSalaryPerDepartment">
+				View average employee salaries by department.
+		</a></li>
+
+		<!-- 08 -->
+		<li><a href="ViewEmployeesEarningSecondMaximumSalary">
+				View employees earning second maximum salary.
+		</a></li>
+
+		<!-- 09 -->
+		<li><a href="ViewDepartmentsWithAtLeastAGivenNumberOfEmployees">
+				View departments with at least a given number of employees.
+		</a></li>
+
+		<!-- 10 -->
+		<li><a href="AddNewEmployeeServlet">
+				Add a new employees.
+		</a></li>
+
+		<!-- 11 -->
+		<li><a href="CreateNewDepartmentServlet">
+				Create a new department.
+		</a></li>
+
+		<!-- 12 -->	
+		<li><a href="AddEmployeeToDepartmentServlet">
+				Add an existing employee to a department.
+		</a></li>
+	</menu>
+</body>
+</html>
