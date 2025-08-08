@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.demo.model.Employee;
 import com.demo.service.EmployeeService;
@@ -25,8 +26,16 @@ public class ViewEmployeesDetailsNotAffiliatedToADepartment extends HttpServlet 
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
+			throws ServletException, IOException
+	{
+		/* Check if the user is logged in to be able to have access*/
+		HttpSession session = request.getSession(false);
+		
+		if (session == null || session.getAttribute("username") == null) {
+			response.sendRedirect("LoginPage");
+			return;
+		}	
+		
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
 
@@ -124,8 +133,13 @@ public class ViewEmployeesDetailsNotAffiliatedToADepartment extends HttpServlet 
 		out.println("</table>");		
 		
 		out.println("<br>");
-		out.println("To go back to option list: ");
-		out.println("<a href='Menu.html'>Click here.</a>");
+		//	<!-- Go Back To Menu -->
+		out.println("	<a href='OptionMenu'"); 
+		out.println("   	class='w-full sm:w-auto text-center px-6 py-3 bg-slate-200 text-slate-800 font-semibold"
+							+ " rounded-lg hover:bg-slate-300 focus:outline-none focus:ring-2 "
+							+ "focus:ring-slate-400 focus:ring-opacity-75 transition-all duration-200'>");
+		out.println("    	Go Back to Menu");
+		out.println("	</a>");
 
 		// JavaScript function to toggle the form visibility
 		out.println("<script>");
@@ -140,11 +154,13 @@ public class ViewEmployeesDetailsNotAffiliatedToADepartment extends HttpServlet 
 		out.println("</script>");
 
 		out.println("</div>"); // close container
+		out.println("<hr>");
 		out.println("</body>");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException
+	{
 		doGet(request, response);
 	}
 }
