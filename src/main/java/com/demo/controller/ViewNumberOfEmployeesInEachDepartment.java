@@ -40,7 +40,7 @@ public class ViewNumberOfEmployeesInEachDepartment extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException
-	{
+	{    	
 		/* Check if the user is logged in to be able to have access*/
 		HttpSession session = request.getSession(false);
 		

@@ -107,6 +107,7 @@ public class CreateNewDepartmentServlet extends HttpServlet {
 			String message)
 			throws IOException 
 	{
+		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 

@@ -145,6 +145,11 @@ public class ViewDepartmentsWithAtLeastAGivenNumberOfEmployees extends HttpServl
 	private void getNumberOfEmployees(HttpServletRequest request, HttpServletResponse response)
 			throws IOException
 	{
+		/* Disable browser back button cache for sensitive information */
+    	response.setHeader("cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    	response.setHeader("Pragma", "no-cache");	// HTTP 1.0
+    	response.setHeader("Expires", "0");		// Proxy
+    	
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 

@@ -22,7 +22,7 @@ public class OptionMenu extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     		throws ServletException, IOException
-    {
+    {   	
 		/* Check if the user is logged in to be able to have access*/
 		HttpSession session = request.getSession(false);
 		
@@ -59,7 +59,7 @@ public class OptionMenu extends HttpServlet {
 	 */
 	private void optionMenu( HttpServletRequest request, HttpServletResponse response)
 			throws IOException 
-	{		
+	{	    	
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		

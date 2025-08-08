@@ -40,7 +40,7 @@ public class LoginPage extends HttpServlet {
 		String pword = request.getParameter("password");
 
 		String message;
-
+		// TODO: Disable browser caching to avoid accessing visited pages after logout using the back button.
 		// TODO: later this needs to be checked in the database
 		if ("Admin".equals(uname) && "123".equals(pword)) {
 
@@ -66,7 +66,7 @@ public class LoginPage extends HttpServlet {
 	 */
 	private void showLoginForm(HttpServletRequest request, HttpServletResponse response, String message)
 			throws IOException 
-	{
+	{	
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 
@@ -104,5 +104,10 @@ public class LoginPage extends HttpServlet {
 		out.println("</form>");
 		out.println("</body>");
 		out.println("</html>");
+		
+		/* Disable browser back button cache for sensitive information */
+    	response.setHeader("cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    	response.setHeader("Pragma", "no-cache");	// HTTP 1.0
+    	response.setHeader("Expires", "0");		// Proxy
 	}
 }

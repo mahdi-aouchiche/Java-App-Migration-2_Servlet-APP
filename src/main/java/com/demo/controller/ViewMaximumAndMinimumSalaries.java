@@ -38,6 +38,11 @@ public class ViewMaximumAndMinimumSalaries extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException
 	{
+		/* Disable browser back button cache for sensitive information */
+    	response.setHeader("cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    	response.setHeader("Pragma", "no-cache");	// HTTP 1.0
+    	response.setHeader("Expires", "0");		// Proxy
+    	
 		/* Check if the user is logged in to be able to have access*/
 		HttpSession session = request.getSession(false);
 		
