@@ -8,14 +8,19 @@
 <style>
 h1 {
 	color: blue;
-	font-size: 14px;
+	font-size: 24px;
 	font-family: verdana;
 	text-align: center;
 }
 
 img {
-	width: 100%;
-	height: 75%;
+	max-width: 70%;
+	height: auto;
+	padding: 20px;
+	display: block; /* Images are inline elements by default, convert to block */
+  	margin-left: auto;
+  	margin-right: auto;
+  	margin-bottom : auto;
 }
 
 h2 {
@@ -26,14 +31,13 @@ h2 {
 
 <body>
 	<h1>Welcome to Java Servlet Demo</h1>
-	<br>
 
 	<h2>
 		Login to continue to menu.<br>
 		<a href="LoginPage">User Login</a>
 	</h2>
 	<br>
-	<img src="images/servlet_api.jpg" alt="">
+	<img src="images/servlet_api.jpg" alt="Servlet API">
 </body>
 
 </html>

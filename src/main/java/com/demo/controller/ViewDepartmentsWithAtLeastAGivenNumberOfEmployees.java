@@ -67,43 +67,33 @@ public class ViewDepartmentsWithAtLeastAGivenNumberOfEmployees extends HttpServl
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException
 	{
-		PrintWriter out = response.getWriter();
+		
 		int numEmployees = 0;
 		List<String> columnLabel = new ArrayList<String>();
 		LinkedHashMap<Department, Integer> records = new LinkedHashMap<>();
-
-		response.setContentType("text/html");
-		/* HTML Head */
-		out.println("<head>");
-		out.println(
-				"<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">");
-		out.println("<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>");
-		out.println("<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\"></script>");
-		out.println("<style>");
-		out.println(".edit-form-row { display: none; }");
-		out.println(".edit-form-row td { padding: 0; }");
-		out.println(".edit-form-row form { margin: 0; padding: 8px; border: none; }");
-		out.println(".edit-form-row input { display: inline-block; width: auto; margin-right: 5px; }");
-		out.println(".edit-form-row button { padding: 5px 10px; }");
-
-		out.println(".action-icons {display: flex; justify-content: space-around; align-items: center;}");
-		out.println(".action-icons img {margin: 0 5px; cursor: pointer;}");
-		out.println("</style>");
-		out.println("</head>");
-
-		/* HTML Body */
-		out.println("<body>");
-		out.println("<div class='container'>");
-		out.println("<br>");
 		
-		/* Print the results in an HTML table using the style */
-		out.println("<table class='table table-bordered table-striped table-hover'>");
-
 		/* Get the least number of employees */
 		numEmployees = Integer.parseInt(request.getParameter("numEmployees"));
 
 		/* Send info to service layer */
 		this.departmentService.listOfDepartmentsWithAtLeastAcertainNumberOFEmployees(columnLabel, records, numEmployees);
+
+		PrintWriter out = response.getWriter();
+		response.setContentType("text/html");
+		/* HTML Head */
+		out.println("<!DOCTYPE html>");
+		out.println("<html>");
+		out.println("<head>");
+			htmlHeader("Departments With At Least A Given Number Of Employees", out);
+		out.println("</head>");
+
+		/* HTML Body */
+		out.println("<body>");
+		out.println("	<div class='container'>");
+		out.println("	<br>");
+		
+		/* Print the results in an HTML table using the style */
+		out.println("	<table class='table table-bordered table-striped table-hover'>");
 
 		// print the table header
 		out.println("<tr>");
@@ -122,15 +112,9 @@ public class ViewDepartmentsWithAtLeastAGivenNumberOfEmployees extends HttpServl
 		}
 
 		out.println("</table>");
+		// <%-- Go Back To Menu Link --%>
 		out.println("<br>");
-		//	<!-- Go Back To Menu -->
-		out.println("	<a href='OptionMenu'"); 
-		out.println("   	class='w-full sm:w-auto text-center px-6 py-3 bg-slate-200 text-slate-800 font-semibold"
-							+ " rounded-lg hover:bg-slate-300 focus:outline-none focus:ring-2 "
-							+ "focus:ring-slate-400 focus:ring-opacity-75 transition-all duration-200'>");
-		out.println("    	Go Back to Menu");
-		out.println("	</a>");
-
+		out.println("<a href='OptionMenu' class='btn btn-primary'>Go Back to Menu</a>");
 		out.println("</div>");
 		out.println("<hr>");
 		out.println("</body>");
@@ -156,31 +140,40 @@ public class ViewDepartmentsWithAtLeastAGivenNumberOfEmployees extends HttpServl
 		out.println("<!DOCTYPE html>");
 		out.println("<html>");
 		out.println("<head>");
-		out.println("<meta charset=\"UTF-8\">");
-		out.println("<title>Get Minimum Number Of Employee</title>");
+		htmlHeader("Get Minimum Number Of Employee", out);
+		out.println("<style>");
+		out.println("	body { display: grid; place-items: center; min-height: 100vh; margin: 0; }");
+		out.println("	th, td { border: 1px solid black; padding: 8px; text-align: left; }");
+		out.println("	table td input { width: 100%; box-sizing: border-box; padding: 5px; }");
+		out.println("</style>");	
 		out.println("</head>");
+		
 		out.println("<body>");
-		out.println("	<form method=\"post\" action=\"ViewDepartmentsWithAtLeastAGivenNumberOfEmployees\">");
-		out.println("		<h3>Enter the least number of employees per department:</h3>");
-		out.println("		<table border='1'>");
+		out.println("	<form method='post' action='ViewDepartmentsWithAtLeastAGivenNumberOfEmployees'>");
+		out.println("		<table border='2'>");
+		out.println("			<th colspan='2' style='text-align: center;'>Enter the least number of employees per department</th>");
 		out.println("			<tr>");
 		out.println("				<td>Number of employees</td>");
-		out.println("				<td><input type=\"number\" name=\"numEmployees\" min=\"0\" required></td>");
+		out.println("				<td><input type='number' name='numEmployees' min='0' required></td>");
 		out.println("			</tr>");
 		out.println("			<tr>");
-		out.println("				<td><input type=\"submit\" value=\"Enter\" required></td>");
+		out.println("				<th colspan='2' style='text-align: center;'><input type='submit' value='Enter' style='width: 100%;' min='0' required></th>");
 		out.println("			</tr>");
 		out.println("		</table>");
-		out.println("	</form>");
+		// <%-- Go Back To Menu Link --%>
 		out.println("<br>");
-		//	<!-- Go Back To Menu -->
-		out.println("	<a href='OptionMenu'"); 
-		out.println("   	class='w-full sm:w-auto text-center px-6 py-3 bg-slate-200 text-slate-800 font-semibold"
-							+ " rounded-lg hover:bg-slate-300 focus:outline-none focus:ring-2 "
-							+ "focus:ring-slate-400 focus:ring-opacity-75 transition-all duration-200'>");
-		out.println("    	Go Back to Menu");
-		out.println("	</a>");
+		out.println("<a href='OptionMenu' class='btn btn-primary'>Go Back to Menu</a>");
+		out.println("	</form>");
 		out.println("</body>");
 		out.println("</html>");
+	}
+	
+	private void htmlHeader(String title, PrintWriter out) {
+		out.println("	<meta charset=\"UTF-8\">");
+		out.println("	<title>" + title + "</title>");
+		
+		out.println("	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'>");
+		out.println("	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>");
+		out.println("	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js'></script>");
 	}
 }

@@ -66,6 +66,14 @@ public class AddEmployeeToDepartmentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException 
 	{
+		/* Check if the user is logged in to be able to have access*/
+		HttpSession session = request.getSession(false);
+		
+		if (session == null || session.getAttribute("username") == null) {
+			response.sendRedirect("LoginPage");
+			return;
+		}	
+		
 		// Retrieve the selected IDs from the form
 		String departmentId = request.getParameter("departmentId");
 		String employeeId = request.getParameter("employeeId");
@@ -78,17 +86,17 @@ public class AddEmployeeToDepartmentServlet extends HttpServlet {
 
 		switch (numUpdatedRecords) {
 		case 2: // SUCCESS: Record exists already.
-			message = "<p style='color:blue; font-weight:bold;'>Attention! The employee is already associated with the department.</p>";
+			message = "<p style='color:blue; font-weight:bold;'>Attention!!! <br>The employee is already associated with the department.</p>";
 			break;
 		case 1: // SUCCESS: One record was updated.
-			message = "<p style='color:green; font-weight:bold;'>Success! The employee was added to the department.</p>";
+			message = "<p style='color:green; font-weight:bold;'>Success!!! <br>The employee was added to the department.</p>";
 			break;
 		case 0: // FAILURE: No records were updated.
-			message = "<p style='color:red; font-weight:bold;'>Error! The employee could not be added. Innput is invalid.</p>";
+			message = "<p style='color:red; font-weight:bold;'>Error!!! <br>The employee could not be added. Input is invalid.</p>";
 			break;
 		default:
-			message = "<p style='color:orange; font-weight:bold;'>Warning: An unexpected number of records were updated ("
-					+ numUpdatedRecords + "). Please check the database.</p>";
+			message = "<p style='color:orange; font-weight:bold;'>Warning!!! <br>An unexpected number of records were updated ("
+					+ numUpdatedRecords + "). <br>Please check the database.</p>";
 			break;
 		}
 
@@ -115,25 +123,44 @@ public class AddEmployeeToDepartmentServlet extends HttpServlet {
 		out.println("<!DOCTYPE html>");
 		out.println("<html>");
 		out.println("<head>");
-		out.println("<meta charset=\"UTF-8\">");
-		out.println("<title>Add An Existing Employee to a Department</title>");
+		out.println("	<meta charset=\"UTF-8\">");
+		out.println("	<title>Add An Existing Employee to a Department</title>");
+		
+		out.println("	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'>");
+		out.println("	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>");
+		out.println("	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js'></script>");
+
+		out.println("	<style>");
+		out.println("		table { border: 2px solid #ccc; width: 100%; height: 50%;}");
+		out.println("		th { border: 1px solid black; padding: 8px;	text-align: center;}");
+		out.println("		td { border: 1px solid black; padding: 8px;	text-align: left;}");
+		out.println("		table input { width: 100%; box-sizing: border-box; padding: 5px;}");
+		out.println("		body { display: grid; place-items: center; min-height: 100vh; margin: 0;}");
+		out.println("		form { height : 400px; width: 600px; margin: 0 auto; padding: 20px;}");
+		out.println("		select {height: 100%; width : 100%;}");
+		out.println("		option { text-align : center;}");
+		out.println("	</style>");	
+		
 		out.println("</head>");
 		out.println("<body>");
-
+		out.println("	<form method='post' action='AddEmployeeToDepartmentServlet'>");
 		// --- Display the message if it exists ---
 		if (message != null && !message.isEmpty()) {
 			out.println(message);
 		}
-
-		out.println("	<form method=\"post\" action=\"AddEmployeeToDepartmentServlet\">");
-		out.println("		<h3>Select Employee and Department:</h3>");
-		out.println("		<table border='1'>");
-
-		// --- Department List Drop down ---
+		
+		out.println("	<table>");
+		out.println("		<thead>");
 		out.println("			<tr>");
-		out.println("				<td>Department Name:</td>");
+		out.println("				<th colspan='2'>Select Employee and Department</th>");
+		out.println("			</tr>");
+		out.println("		</thead>");
+		// --- Department List Drop down ---
+		out.println("		<tbody>");
+		out.println("			<tr>");
+		out.println("				<td>Department Name</td>");
 		out.println("				<td>");
-		out.println("					<select name=\"departmentId\" required>");
+		out.println("					<select name='departmentId' required>");
 		out.println("						<option value=\"\" disabled selected>-- Select a Department --</option>");
 
 		// Fetch and display departments
@@ -148,7 +175,7 @@ public class AddEmployeeToDepartmentServlet extends HttpServlet {
 
 		// --- Employee List Drop down ---
 		out.println("			<tr>");
-		out.println("				<td>Employee Name:</td>");
+		out.println("				<td>Employee Name</td>");
 		out.println("				<td>");
 		out.println("					<select name=\"employeeId\" required>");
 		out.println("						<option value=\"\" disabled selected>-- Select an Employee --</option>");
@@ -162,20 +189,19 @@ public class AddEmployeeToDepartmentServlet extends HttpServlet {
 		out.println("					</select>");
 		out.println("				</td>");
 		out.println("			</tr>");
-
+		out.println("		</tbody>");
+		// --- Submit Buttons ---
+		out.println("		<tfoot>");
 		out.println("			<tr>");
-		out.println("				<td colspan='2'><input type=\"submit\" value=\"Add Employee to Department\"></td>");
+		out.println("				<th colspan='2' ><input type='submit' value='Add Employee to Department'></th>");
 		out.println("			</tr>");
-		out.println("		</table>");
-		out.println("	</form>");
+		out.println("		</tfoot>");
+		out.println("	</table>");
+
+		// <%-- Go Back To Menu Link --%>
 		out.println("	<br>");
-		//	<!-- Go Back To Menu -->
-		out.println("	<a href='OptionMenu'"); 
-		out.println("   	class='w-full sm:w-auto text-center px-6 py-3 bg-slate-200 text-slate-800 font-semibold"
-							+ " rounded-lg hover:bg-slate-300 focus:outline-none focus:ring-2 "
-							+ "focus:ring-slate-400 focus:ring-opacity-75 transition-all duration-200'>");
-		out.println("    	Go Back to Menu");
-		out.println("	</a>");
+		out.println("	<a href='OptionMenu' class='btn btn-primary'>Go Back to Menu</a>");
+		out.println("	</form>");		
 		out.println("</body>");
 		out.println("</html>");
 	}

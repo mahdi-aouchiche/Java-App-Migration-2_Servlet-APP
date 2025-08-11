@@ -40,21 +40,35 @@ public class ViewEmployeesDetailsAffiliatedToADepartment extends HttpServlet {
 		response.setContentType("text/html");
 
 		/* HTML Head */
+		out.println("<!DOCTYPE html>");
+		out.println("<html>");
 		out.println("<head>");
-		out.println(
-				"<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">");
-		out.println("<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>");
-		out.println("<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\"></script>");
-		out.println("<style>");
-		out.println(".edit-form-row { display: none; }");
-		out.println(".edit-form-row td { padding: 0; }");
-		out.println(".edit-form-row form { margin: 0; padding: 8px; border: none; }");
-		out.println(".edit-form-row input { display: inline-block; width: auto; margin-right: 5px; }");
-		out.println(".edit-form-row button { padding: 5px 10px; }");
-
-		out.println(".action-icons {display: flex; justify-content: space-around; align-items: center;}");
-		out.println(".action-icons img {margin: 0 5px; cursor: pointer;}");
-		out.println("</style>");
+		out.println("	<meta charset=\"UTF-8\">");
+		out.println("	<title>Employees Associated To A Department</title>");
+		
+		out.println("	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'>");
+		out.println("	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>");
+		out.println("	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js'></script>");
+		out.println("	<style>");
+		out.println("		.edit-form-row { display: none; }");
+		out.println("		.edit-form-row td { padding: 0 !important; }");
+		out.println("		.edit-form-row form { margin: 0; padding: 8px; border: none; }");
+		out.println("		.edit-form-row input { display: inline-block; width: 100%; margin-right: 5px; }");
+		out.println("		.edit-form-row button { padding: 5px 10px; }");
+		out.println("		.action-icons { display: flex; justify-content: space-around; align-items: center; }");
+		out.println("		.action-icons img { margin: 0 5px; cursor: pointer; }");
+		out.println("	</style>");
+		// JavaScript function to toggle the form visibility
+		out.println("	<script>");
+		out.println("		function showUpdateForm(id) {");
+		out.println("  			var element = document.getElementById('edit-row-' + id);");
+		out.println("  			if (element.style.display === 'none' || element.style.display === '') {");
+		out.println("    			element.style.display = 'table-row';");
+		out.println("  			} else {");
+		out.println("    			element.style.display = 'none';");
+		out.println("  			}");
+		out.println("		}");
+		out.println("	</script>");
 		out.println("</head>");
 
 		/* HTML Body */
@@ -73,7 +87,7 @@ public class ViewEmployeesDetailsAffiliatedToADepartment extends HttpServlet {
 		out.println("<thead>");
 		out.println("<tr>");
 		for (String label : columnLabels) {
-			out.printf("<th>%s</th>", label);
+			out.printf("<th style='text-align:center'>%s</th>", label);
 		}
 		out.println("</tr>");
 		out.println("</thead>");
@@ -89,9 +103,9 @@ public class ViewEmployeesDetailsAffiliatedToADepartment extends HttpServlet {
 			
 			out.println("<tr>");  // begin table row
 			// Employee data
-			out.printf("<td>%d</td>", id);
+			out.printf("<td style='text-align:center'>%d</td>", id);
 			out.printf("<td>%s</td>", name);
-			out.printf("<td>%d</td>", age);
+			out.printf("<td style='text-align:center'>%d</td>", age);
 			out.printf("<td>$%,.2f</td>", salary);
 			
 			// Action column
@@ -116,11 +130,11 @@ public class ViewEmployeesDetailsAffiliatedToADepartment extends HttpServlet {
 								+ request.getServletPath() + "' method='post'>");
 
 			out.printf("	<td> <input type='hidden' name='id' value='%d'> </td>", id);
-			out.printf("	<td> <input type='text' name='name' value='%s' placeholder='Full Name'> </td>", name);
-			out.printf("	<td> <input type='text' name='age' value='%d' placeholder='Age'> </td>", age);
-			out.printf("	<td> <input type='text' name='salary' value='%.2f' placeholder='Salary'> </td>", salary);
+			out.printf("	<td> <input type='text' name='name' value='%s' placeholder='Full Name' required> </td>", name);
+			out.printf("	<td> <input type='number' name='age' value='%d' placeholder='Age' min='18' required style='text-align:center;'> </td>", age);
+			out.printf("	<td> <input type='number' name='salary' value='%.2f' placeholder='Salary' oninput='doubleValue()' step='0.01' min='0' required> </td>", salary);
 
-			out.println("	<td>");
+			out.println("	<td style = 'display: flex; justify-content: space-around; align-items: center;'>");
 			out.println("		<button type='submit' class='btn btn-success'>Update</button>");
 			out.println("		<button type='button' class='btn btn-default'" + 
 								"onclick=\"showUpdateForm(" + id + ")\">Cancel</button>");
@@ -130,28 +144,9 @@ public class ViewEmployeesDetailsAffiliatedToADepartment extends HttpServlet {
 		}
 		out.println("</tbody>");	// end of table body
 		out.println("</table>");		
-		
-		//	<!-- Go Back To Menu -->
+		// <%-- Go Back To Menu Link --%>
 		out.println("<br>");
-		out.println("	<a href='OptionMenu'"); 
-		out.println("   	class='w-full sm:w-auto text-center px-6 py-3 bg-slate-200 text-slate-800 font-semibold"
-							+ " rounded-lg hover:bg-slate-300 focus:outline-none focus:ring-2 "
-							+ "focus:ring-slate-400 focus:ring-opacity-75 transition-all duration-200'>");
-		out.println("    	Go Back to Menu");
-		out.println("	</a>");
-		
-		// JavaScript function to toggle the form visibility
-		out.println("<script>");
-		out.println("function showUpdateForm(id) {");
-		out.println("  var element = document.getElementById('edit-row-' + id);");
-		out.println("  if (element.style.display === 'none' || element.style.display === '') {");
-		out.println("    element.style.display = 'table-row';");
-		out.println("  } else {");
-		out.println("    element.style.display = 'none';");
-		out.println("  }");
-		out.println("}");
-		out.println("</script>");
-
+		out.println("<a href='OptionMenu' class='btn btn-primary'>Go Back to Menu</a>");
 		out.println("</div>"); // close container
 		out.println("<hr>");
 		out.println("</body>");

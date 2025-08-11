@@ -51,10 +51,18 @@ public class ViewEmployeesEarningSecondMaximumSalary extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
 		/* HTML Head */
+		out.println("<!DOCTYPE html>");
+		out.println("<html>");
 		out.println("<head>");
-		out.println("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">");
-		out.println("<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\"></script>");
-		out.println("<head>");
+		out.println("	<meta charset=\"UTF-8\">");
+		out.println("	<title>Employees Earning Second Highest Salary</title>");
+		
+		out.println("	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'>");
+		out.println("	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>");
+		out.println("	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js'></script>");
+		out.println("	<style>");
+		out.println("		table th, td { text-align: center; }");
+		out.println("	</style>");
 		out.println("</head>");
 		
 		/* HTML Body*/
@@ -86,16 +94,10 @@ public class ViewEmployeesEarningSecondMaximumSalary extends HttpServlet {
 			out.println("</tr>");
 		}		
 		out.println("</table>");
+		// <%-- Go Back To Menu Link --%>
 		out.println("<br>");
-		//	<!-- Go Back To Menu -->
-		out.println("	<a href='OptionMenu'"); 
-		out.println("   	class='w-full sm:w-auto text-center px-6 py-3 bg-slate-200 text-slate-800 font-semibold"
-							+ " rounded-lg hover:bg-slate-300 focus:outline-none focus:ring-2 "
-							+ "focus:ring-slate-400 focus:ring-opacity-75 transition-all duration-200'>");
-		out.println("    	Go Back to Menu");
-		out.println("	</a>");
+		out.println("<a href='OptionMenu' class='btn btn-primary'>Go Back to Menu</a>");
 		out.println("</div>");
-		out.println("<hr>");
 		out.println("</body>");
 	}
 }

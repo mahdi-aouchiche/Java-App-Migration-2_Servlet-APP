@@ -2,9 +2,8 @@ package com.demo.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 
+import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,58 +47,34 @@ public class ViewSecondMaximumSalary extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
 		/* HTML Head */
+		out.println("<!DOCTYPE html>");
+		out.println("<html>");
 		out.println("<head>");
-		out.println("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">");
-		out.println("<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\"></script>");
-		out.println("<head>");
+		out.println("	<meta charset=\"UTF-8\">");
+		out.println("	<title>Second Highest Salary</title>");
+		
+		out.println("	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'>");
+		out.println("	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>");
+		out.println("	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js'></script>");
 		out.println("</head>");
 		
-		/*HTML Body*/
+		/* HTML Body */
 		out.println("<body>");
-		out.println("<div class='container'>");
+		out.println("	<div class='container'>");
+		out.println("	<br>");
 		
 		// Print the results in an HTML table using the style 
-		out.println("<table class='table table-bordered table-striped table-hover'>");
+		out.println("		<table class='table table-bordered table-striped table-hover'>");
+		out.printf("			<th style='text-align:center'>%s</th>", "Employees Second Highest Salary");
+		out.println("			<tr>");
+		out.printf("				<td style='text-align:center'>$%,.2f</td>", this.employeeService.secondMaxEmployeesSalary());
+		out.println("			</tr>");	
+		out.println("		</table>");
 		
-		try {
-			// Send info to service layer					
-			ResultSet rs = this.employeeService.secondmaximumSalary();
-			ResultSetMetaData rsmd = rs.getMetaData();
-			int columnCount = rsmd.getColumnCount();
-			
-			// print the table header
-			out.println("<tr>");
-			for(int i = 1; i <= columnCount; i++) {
-				out.println("<th>");
-				out.print( rsmd.getColumnLabel(i) );
-				out.println("</th>");
-			}
-			out.println("</tr>");
-			
-			// print the results
-			while(rs.next()) {
-					out.println("<tr>");
-					for(int i = 1; i <= columnCount; i++) {
-						out.println("<td>");
-						out.printf("$%,.2f", rs.getDouble(i));
-						out.println("</td>");
-					}
-					out.println("</tr>");		
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		out.println("</table>");
-		out.println("<br>");
-		//	<!-- Go Back To Menu -->
-		out.println("	<a href='OptionMenu'"); 
-		out.println("   	class='w-full sm:w-auto text-center px-6 py-3 bg-slate-200 text-slate-800 font-semibold"
-							+ " rounded-lg hover:bg-slate-300 focus:outline-none focus:ring-2 "
-							+ "focus:ring-slate-400 focus:ring-opacity-75 transition-all duration-200'>");
-		out.println("    	Go Back to Menu");
-		out.println("	</a>");
-		out.println("</div'>");
+		// <%-- Go Back To Menu Link --%>
+		out.println("		<br>");
+		out.println("		<a href='OptionMenu' class='btn btn-primary'>Go Back to Menu</a>");
+		out.println("	</div>");
 		out.println("</body>");
 	}
 }

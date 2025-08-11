@@ -117,36 +117,52 @@ public class CreateNewDepartmentServlet extends HttpServlet {
 		out.println("<head>");
 		out.println("<meta charset=\"UTF-8\">");
 		out.println("<title>Create A New Department</title>");
+		
+		out.println("	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'>");
+		out.println("	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>");
+		out.println("	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js'></script>");
+		
+		out.println("	<style>");
+		out.println("		table { border: 2px solid #ccc; width: 100%; height: 50%;}");
+		out.println("		th { border: 1px solid black; padding: 8px;	text-align: center;}");
+		out.println("		td { border: 1px solid black; padding: 8px;	text-align: left;}");
+		out.println("		table input { width: 100%; box-sizing: border-box; padding: 5px;}");
+		out.println("		body { display: grid; place-items: center; min-height: 100vh; margin: 0;}");
+		out.println("		form { width: 600px; margin: 0 auto; padding: 20px;}");
+		out.println("	</style>");	
+
 		out.println("</head>");
 		out.println("<body>");
 
+		out.println("	<form method=\"post\" action=\"CreateNewDepartmentServlet\">");
 		// --- Display the message if it exists ---
 		if (message != null && !message.isEmpty()) {
 			out.println(message);
 		}
-
-		out.println("	<form method=\"post\" action=\"CreateNewDepartmentServlet\">");
-		out.println("		<h3>Create A New Department:</h3>");
-		out.println("		<table border='1'>");
+		out.println("	<table>");
+		out.println("		<thead>");
+		out.println("			<tr>");
+		out.println("				<th colspan='2'>Create A New Department</th>");
+		out.println("			</tr>");
+		out.println("		</thead>");
 		// --- Get Department Name From User ---
+		out.println("		<tbody>");
 		out.println("			<tr>");
-		out.println("				<td>Department Name:</td>");
-		out.println("				<td><input type=\"text\" name=\"departmentName\" required></td>");
+		out.println("				<td>Department Name</td>");
+		out.println("				<td><input type='text' name='departmentName'  placeholder='Example: Customer Service' required></td>");
 		out.println("			</tr>");
+		out.println("		<tbody>");
 		// --- Submit Button ---
+		out.println("		<tfoot>");
 		out.println("			<tr>");
-		out.println("				<td><input type=\"submit\" value=\"Add Department\"></td>");
+		out.println("				<th colspan='2'><input type='submit' value='Add Department'></th>");
 		out.println("			</tr>");
-		out.println("		</table>");
-		out.println("	</form>");
+		out.println("		<tfoot>");
+		out.println("	</table>");
+		// <%-- Go Back To Menu Link --%>
 		out.println("	<br>");
-		//	<!-- Go Back To Menu -->
-		out.println("	<a href='OptionMenu'"); 
-		out.println("   	class='w-full sm:w-auto text-center px-6 py-3 bg-slate-200 text-slate-800 font-semibold"
-							+ " rounded-lg hover:bg-slate-300 focus:outline-none focus:ring-2 "
-							+ "focus:ring-slate-400 focus:ring-opacity-75 transition-all duration-200'>");
-		out.println("    	Go Back to Menu");
-		out.println("	</a>");
+		out.println("	<a href='OptionMenu' class='btn btn-primary'>Go Back to Menu</a>");
+		out.println("	</form>");
 		out.println("</body>");
 		out.println("</html>");
 	}
