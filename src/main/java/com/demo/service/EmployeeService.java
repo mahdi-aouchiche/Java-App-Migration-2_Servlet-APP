@@ -1,6 +1,5 @@
 package com.demo.service;
 
-import java.sql.ResultSet;
 import java.util.List;
 
 import com.demo.dao.EmployeeDAO;
@@ -46,29 +45,29 @@ public class EmployeeService {
 	}
 
 	/**
-	 * 4 Find the Average salary of all employees
+	 * Find the Average salary of all employees
 	 * 
-	 * @return ResultSet of the average salary of all employees
+	 * @return The average salary of all employees
 	 */
 	public double averageEmployeesSalary() {
 		return this.employeeDAO.getAverageSalaryOfAllEmployees();
 	}
 
 	/**
-	 * 5 Find the Max and Min salaries of employees
+	 * Find the Maximum and Minimum salaries of employees
 	 * 
-	 * @return ResultSet of the max and min salaries
+	 * @return [minimum salary, maximum salary] 
 	 */
-	public ResultSet maxAndMinSalaries() {
-		return this.employeeDAO.getMaximumAndMinimumSalaries();
+	public List<Double>  getMinAndMaxSalary() {
+		return this.employeeDAO.getMinAndMaxSalary();
 	}
 
 	/**
-	 * 6 Find the second Max salary
+	 * Find the second Max salary
 	 * 
-	 * @return ResultSet of the second max salary
+	 * @return The second max salary
 	 */
-	public ResultSet secondmaximumSalary() {
+	public double secondMaxEmployeesSalary() {
 		return this.employeeDAO.getSecondMaximumSalary();
 	}
 
@@ -89,9 +88,9 @@ public class EmployeeService {
 	}
 
 	/**
-	 * 12 Add a new employee
+	 * Add a new employee
 	 * 
-	 * @param fullname employee's firstname and lastname
+	 * @param fullname employee's first name and last name
 	 * @param age      employee's age
 	 * @param salary   employee's salary
 	 * @return 1 if the employee is added, 0 otherwise.

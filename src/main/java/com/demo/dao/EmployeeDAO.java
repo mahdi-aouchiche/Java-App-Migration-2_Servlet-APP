@@ -21,6 +21,7 @@ public class EmployeeDAO {
 	
 	/**
 	 * Get the list of employees associated to a department
+	 * 
 	 * @param List to hold column labels
 	 * @param List of employees who are associated to a department 
 	 */
@@ -62,6 +63,7 @@ public class EmployeeDAO {
 	
 	/**
 	 * Get the list of employees NOT associated to a department
+	 * 
 	 * @param List to hold column labels
 	 * @param List of employees not affiliated to a department
 	 */
@@ -103,6 +105,7 @@ public class EmployeeDAO {
 		
 	/**
 	 * Get the average salary of all employees
+	 * 
 	 * @return double average salary.
 	 */
 	public double getAverageSalaryOfAllEmployees() {
@@ -124,45 +127,57 @@ public class EmployeeDAO {
 		return averageSalary;
 	}
 	
-	/** 5
+	/**
 	 * Get maximum and minimum salaries
-	 * @return ResultSet a result set
+	 * 
+	 * @return [minimum salary, maximum salary]
 	 */
-	public ResultSet getMaximumAndMinimumSalaries() {
-		ResultSet resultSet = null;
+	public List<Double>  getMinAndMaxSalary() {
+		List<Double> minAndMaxSalary = new ArrayList<>();
+		String query = "SELECT MIN(salary), MAX(salary) FROM employee;";
 		
-		String query = "SELECT MAX(salary) AS 'Maximum Salary', MIN(salary) AS 'Minimum Salary' FROM employee;";
-		
-		try {
-			Statement statement = this.connection.createStatement();
-			resultSet = statement.executeQuery(query);
+		try(Statement statement = this.connection.createStatement()) {
+			
+			ResultSet resultSet = statement.executeQuery(query);
+			if(resultSet.next()) {
+				minAndMaxSalary.add(resultSet.getDouble(1));
+				minAndMaxSalary.add(resultSet.getDouble(2));
+			}
+			resultSet.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return resultSet;
+		
+		return minAndMaxSalary;
 	}
 	
-	/** 6
+	/**
 	 * Get Second maximum salary
-	 * @return ResultSet a result set
+	 * 
+	 * @return Second maximum salary
 	 */
-	public ResultSet getSecondMaximumSalary() {
-		ResultSet resultSet = null;
-		
+	public double getSecondMaximumSalary() {
+		double secondMaxSalary = 0;
+				
 		String query = "SELECT MAX(salary) AS 'Second Maximum Salary' " + 
 				"FROM employee WHERE salary < (SELECT MAX(salary) FROM employee);";
 		
-		try {
-			Statement statement = this.connection.createStatement();
-			resultSet = statement.executeQuery(query);
+		try(Statement statement = this.connection.createStatement()) {	
+			ResultSet rs = statement.executeQuery(query);
+			
+			if(rs.next()) {
+				secondMaxSalary = rs.getDouble(1);
+			}
+			rs.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return resultSet;
+		return secondMaxSalary;
 	}
 	
 	/** 
 	 * Get the list of employee earning the second highest salary
+	 * 
 	 * @param list which will hold the column labels
 	 * @param list which will hold the employees earning second max salary
 	 */
@@ -206,8 +221,9 @@ public class EmployeeDAO {
 	}	
 	
 	
-	/** 10
+	/** 
 	 * Add an employee to the employee table
+	 * 
 	 * @param fullName
 	 * @param age
 	 * @param salary
@@ -251,6 +267,7 @@ public class EmployeeDAO {
 
 	/**
 	 * Delete an employee from the employee and from emp_dept tables
+	 * 
 	 * @param employeeID to delete
 	 * @return true if employee is deleted. false otherwise.
 	 */
@@ -279,6 +296,7 @@ public class EmployeeDAO {
 
 	/**
 	 * Update an employee info
+	 * 
 	 * @param employeeID
 	 * @param name
 	 * @param age
@@ -320,6 +338,7 @@ public class EmployeeDAO {
 	
 	/**
 	 * Get all employees from database
+	 * 
 	 * @return list of all employees
 	 */
 	public List<Employee> getEmployees() {
