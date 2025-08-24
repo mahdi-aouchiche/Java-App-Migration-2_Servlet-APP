@@ -79,7 +79,9 @@ public class ViewEmployeesDetailsAffiliatedToADepartment extends HttpServlet {
 		
 		List<Employee> employeesAssociatedToDepartment = new ArrayList<Employee>();
 		List<String> columnLabels = new ArrayList<String>();
-		this.employeeService.listOfEmployeesAssociatedToDepartment(columnLabels,employeesAssociatedToDepartment);
+		this.employeeService.listOfEmployeesAssociatedToDepartment(
+				columnLabels,
+				employeesAssociatedToDepartment);
 		
 		/* Print the table header */
 		columnLabels.add("Action");
@@ -103,9 +105,9 @@ public class ViewEmployeesDetailsAffiliatedToADepartment extends HttpServlet {
 			
 			out.println("<tr>");  // begin table row
 			// Employee data
-			out.printf("<td style='text-align:center'>%d</td>", id);
+			out.printf("<td style='text-align:center;'>%d</td>", id);
 			out.printf("<td>%s</td>", name);
-			out.printf("<td style='text-align:center'>%d</td>", age);
+			out.printf("<td style='text-align:center;'>%d</td>", age);
 			out.printf("<td>$%,.2f</td>", salary);
 			
 			// Action column

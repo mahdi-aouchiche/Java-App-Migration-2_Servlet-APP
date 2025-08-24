@@ -76,7 +76,7 @@ public class ViewDepartmentsWithAtLeastAGivenNumberOfEmployees extends HttpServl
 		numEmployees = Integer.parseInt(request.getParameter("numEmployees"));
 
 		/* Send info to service layer */
-		this.departmentService.listOfDepartmentsWithAtLeastAcertainNumberOFEmployees(columnLabel, records, numEmployees);
+		this.departmentService.listOfDepartmentsWithAtLeastACertainNumberOFEmployees(columnLabel, records, numEmployees);
 
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");

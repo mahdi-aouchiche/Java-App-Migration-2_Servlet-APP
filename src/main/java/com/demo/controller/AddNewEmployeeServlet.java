@@ -18,8 +18,7 @@ import com.demo.service.EmployeeService;
 @WebServlet("/AddNewEmployeeServlet")
 public class AddNewEmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	
+		
 	/**
 	 * This method handles displaying the form
 	 * 
@@ -75,15 +74,15 @@ public class AddNewEmployeeServlet extends HttpServlet {
 		String message = "";
 		switch (numEmployeesAdded) {
 		case 2:	// Employee Exists based on full name and age
-			message = "<p style='color:blue; font-weight:bold;'>Empoyee \"" + fullname
+			message = "<p style='color:blue; font-weight:bold;'>Employee \"" + fullname
 				+ "\" exists already!<br> Please go to update employee if necessary.</p>";
 			break;
 		case 1:	// Employee Added Successfully
-			message = "<p style='color:green; font-weight:bold;'>Empoyee \"" + fullname
+			message = "<p style='color:green; font-weight:bold;'>Employee \"" + fullname
 				+ "\" is added sucessfully!</p>";
 			break;
 		case 0:
-			message = "<p style='color:red; font-weight:bold;'>Unsuccessful! Empoyee is NOT added!</p>";
+			message = "<p style='color:red; font-weight:bold;'>Unsuccessful! Employee is NOT added!</p>";
 		break;
 
 		default:
@@ -156,19 +155,19 @@ public class AddNewEmployeeServlet extends HttpServlet {
 		// --- Get Employee Details From User ---
 		out.println("			<tbody>");
 		out.println("				<tr>");
-		out.println("					<td>First Name:</td>");
+		out.println("					<td>First Name</td>");
 		out.println("					<td><input type='text' name='firstname' placeholder='John' required></td>");
 		out.println("				</tr>");
 		out.println("				<tr>");
-		out.println("					<td>Last Name:</td>");
+		out.println("					<td>Last Name</td>");
 		out.println("					<td><input type='text' name='lastname' placeholder='Smith' required></td>");
 		out.println("				</tr>");
 		out.println("				<tr>");
-		out.println("					<td>Age (between 18 and 100):</td>");
+		out.println("					<td>Age (between 18 and 100)</td>");
 		out.println("					<td><input type='number' name='age' min='18' max='100' required></td>");
 		out.println("				</tr>");
 		out.println("				<tr>");
-		out.println("					<td>Salary:</td>");
+		out.println("					<td>Salary</td>");
 		out.println("					<td><input type='number' name='salary' oninput='doubleValue()' step='0.01' min='0' required></td>");
 		out.println("				</tr>");
 		out.println("			</tbody>");

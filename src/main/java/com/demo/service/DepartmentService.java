@@ -47,7 +47,7 @@ public class DepartmentService {
 	 * @param minimum number of employees to consider in the result 
 	 * @return ReslutSet a list of all department with at least numEmployees
 	 */
-	public void listOfDepartmentsWithAtLeastAcertainNumberOFEmployees(
+	public void listOfDepartmentsWithAtLeastACertainNumberOFEmployees(
 			List<String> columnLabel, 
 			LinkedHashMap<Department, Integer> records, 
 			int numEmployees) 
@@ -71,7 +71,8 @@ public class DepartmentService {
 			str = str.toLowerCase();
 			dName += str.substring(0, 1).toUpperCase() + str.substring(1) + " "; 
 		}
-		return this.departmentDAO.createDepartment(dName.trim());
+		dName = dName.trim();
+		return this.departmentDAO.createDepartment(dName);
 	}
 
 	/**

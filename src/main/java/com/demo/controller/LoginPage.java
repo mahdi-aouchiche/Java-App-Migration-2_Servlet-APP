@@ -74,45 +74,54 @@ public class LoginPage extends HttpServlet {
 		out.println("<!DOCTYPE html>");
 		out.println("<html>");
 		out.println("<head>");
-		out.println("<meta charset=\"UTF-8\">");
-		out.println("<title>Login Page</title>");
+		out.println("	<meta charset=\"UTF-8\">");
+		out.println("	<title>Login Page</title>");
 		
 		out.println("	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'>");
 		out.println("	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>");
 		out.println("	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js'></script>");
 		
 		out.println("	<style>");
-		out.println("		table { border: 2px solid #ccc; width: 100%; height: 50%;}");
+		out.println("		.table-container {\r\n"
+					+ "        display: flex;\r\n"
+					+ "        justify-content: center; /* Centers horizontally */\r\n"
+					+ "        align-items: center;    /* Centers vertically */\r\n"
+					+ "        height: 100vh;          /* Ensures the container takes full viewport height for vertical centering */\r\n"
+					+ "    	}");
+
+		out.println("		table { border:none; width: 100%; height: 50%;}");
+		out.println("		table thead th { border:none; width: 100%; height: 50%;}");
+		out.println("		table tbody th { border: 2px solid #ccc; width: 100%; height: 50%;}");
+		out.println("		table tfoot th { border: 2px solid #ccc; width: 100%; height: 50%;}");
 		out.println("		th { width: 100%; border: 1px solid black; padding: 8px; text-align: center;}");
 		out.println("		td { border: 1px solid black; padding: 8px;	text-align: left;}");
-		out.println("		table td input { width: 100%; box-sizing: border-box; padding: 5px;}");
+		out.println("		table td input { height: 100%; width: 100%; box-sizing: border-box; padding: 5px;}");
 		out.println("		body { display: grid; place-items: center; min-height: 100vh; margin: 0;}");
 		out.println("		form { width: 600px; margin: 0 auto; padding: 20px;}");
-		out.println("		input { width: 100%;}");
+		out.println("		input { width: 100%; height: 100%;}");
 		out.println("	</style>");	
-		
 		out.println("</head>");
+				
 		out.println("<body class='bg-gray-100 flex items-center justify-center min-h-screen'>");
+		out.println("<div class='table-container'>");
 		out.println("<form method='post' action='LoginPage'>");
-		out.println("	<table");
+		out.println("	<table>");
 		out.println("		<thead>");
 		out.println("			<tr>");
-		out.println("				<th colspan='2'><h2>Enter your login details</h2></th>");
+		out.println("				<th><h2>Enter your login details</h2></th>");
 		out.println("			</tr>");
 		out.println("		</thead>");
 		out.println("		<tbody>");
 		out.println("			<tr>");
-		out.println("				<td>User Name</td>");
 		out.println("				<td><input type='text' name='username' placeholder='Enter User Name' required></td>");
 		out.println("			</tr>");
 		out.println("			<tr>");
-		out.println("				<td>Password</td>");
 		out.println("				<td><input type='password' name='password' placeholder='Enter Password' required></td>");
 		out.println("			</tr>");
 		out.println("		</tbody>");
-		out.println("		</tfoot>");
+		out.println("		<tfoot>");
 		out.println("			<tr>");
-		out.println("				<th colspan='2'><input type='submit' value='Login' required></th>");
+		out.println("				<th><input type='submit' value='Login' required></th>");
 		out.println("			</tr>");
 		out.println("		</tfoot>");
 		out.println("	</table>");
@@ -122,12 +131,8 @@ public class LoginPage extends HttpServlet {
 			out.println(message);
 		}
 		out.println("</form>");
+		out.println("</div>");
 		out.println("</body>");
 		out.println("</html>");
-		
-		/* Disable browser back button cache for sensitive information */
-    	response.setHeader("cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
-    	response.setHeader("Pragma", "no-cache");	// HTTP 1.0
-    	response.setHeader("Expires", "0");		// Proxy
 	}
 }

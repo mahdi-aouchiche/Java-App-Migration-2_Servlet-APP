@@ -79,7 +79,7 @@ public class AddEmployeeToDepartmentServlet extends HttpServlet {
 		String employeeId = request.getParameter("employeeId");
 
 		// The service method returns the number of records updated.
-		// Typically, 1 means success and 0 means failure.
+		// Typically, 1 means success, 2 means it exists, and 0 means failure.
 		int numUpdatedRecords = departmentService.addEmployeeToDepartment(departmentId, employeeId);
 
 		String message;
